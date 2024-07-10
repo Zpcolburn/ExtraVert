@@ -68,11 +68,11 @@ while (choice != "0")
     choice = Console.ReadLine();
     if (choice == "0")
     {
-        Console.WriteLine("Goodby!");
+        Console.WriteLine("Goodbye!");
     }
     else if (choice == "1")
     {
-        throw new NotImplementedException("DisplayPlants");
+       DisplayPlants();
     }
     else if (choice == "2")
     {
@@ -87,4 +87,15 @@ while (choice != "0")
         throw new NotImplementedException("DelistPlant");
     }
 };
+
+void DisplayPlants()
+{
+    for (int i = 0; i < plants.Count; i++)
+    {
+        var plant = plants[i];
+        string status = plant.Sold ? "was sold" : "is available";
+        Console.WriteLine($"{i + 1}. A {plant.Species} in {plant.City} {status} for {plant.AskingPrice} dollars");
+    }
+};
+
 Console.Read();
