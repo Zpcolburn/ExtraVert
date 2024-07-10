@@ -52,24 +52,39 @@ List<Plant> plants = new List<Plant>()
 
 };
 
-string greeting = @"Welcome to Extravert where, you guessed it, extraverts come to buy their favorite thing...... plants!";
+string greeting = @"Welcome to Extravert, the only plant adobtion store!";
 
 Console.WriteLine(greeting);
 
-Console.WriteLine("Please choose a species name: ");
-
-string response = Console.ReadLine();
-
-while (string.IsNullOrEmpty(response))
+string choice = null;
+while (choice != "0")
 {
-    Console.WriteLine("You didn't choose anything, try again!");
-    response = Console.ReadLine();
-}
-
-Console.WriteLine($"You chose: {response}");
-
-Console.WriteLine("Available Plants:");
-for (int i = 0; i < plants.Count; i++)
-{
-    Console.WriteLine($"{i + 1}. {plants[i].Species}");
-}
+    Console.WriteLine(@"Choose an option:
+                        0. Exit
+                        1. Display all plants
+                        2. Post a plant to be adobted
+                        3. Adopt a plant
+                        4. Delist a plant");
+    choice = Console.ReadLine();
+    if (choice == "0")
+    {
+        Console.WriteLine("Goodby!");
+    }
+    else if (choice == "1")
+    {
+        throw new NotImplementedException("DisplayPlants");
+    }
+    else if (choice == "2")
+    {
+        throw new NotImplementedException("PostPlantToBeAdobted");
+    }
+    else if (choice == "3")
+    {
+        throw new NotImplementedException("AdoptPlant");
+    }
+    else if (choice == "4")
+    {
+        throw new NotImplementedException("DelistPlant");
+    }
+};
+Console.Read();
