@@ -62,7 +62,7 @@ while (choice != "0")
     Console.WriteLine(@"Choose an option:
                         0. Exit
                         1. Display all plants
-                        2. Post a plant to be adobted
+                        2. Post a plant to be adopted
                         3. Adopt a plant
                         4. Delist a plant");
     choice = Console.ReadLine();
@@ -76,7 +76,7 @@ while (choice != "0")
     }
     else if (choice == "2")
     {
-        throw new NotImplementedException("PostPlantToBeAdobted");
+        PostPlantToBeAdopted();
     }
     else if (choice == "3")
     {
@@ -98,4 +98,63 @@ void DisplayPlants()
     }
 };
 
+void PostPlantToBeAdopted()
+{
+    // Take input as string for a plant species to be added 
+    Console.WriteLine("Enter the plant species:");
+    string species = Console.ReadLine();
+
+    // Initailizes lightNeeds to 0
+    int lightNeeds = 0;
+    // Prompts a message to the console asking for input
+    Console.WriteLine("Enter the light needs (1-5):");
+    // This attempts to convert the users input to a integer, if successfull it assigns it to lightNeeds and returns true. 
+    // lightNeeds < 1 || lightNeeds > 5 This checks if the integer is within (1-5)
+    while(!int.TryParse(Console.ReadLine(), out lightNeeds) || lightNeeds < 1 || lightNeeds > 5)
+    {
+        // If false this is the message that gets sent to console
+        Console.WriteLine("Please enter number between 1 and 5 for light needs:");
+    }
+    // Message asking user to input the price. 
+    Console.WriteLine("Enter the asking price:");
+    int askingPrice;
+    // This converts users input to an integer and makes them put in a price greater than zero
+    while (!int.TryParse(Console.ReadLine(), out askingPrice) || askingPrice < 0)
+    {
+        // If user inputs negative numbers it will throw this code to console
+        Console.WriteLine("Please enter a valid positive number for the asking price:");
+    }
+    // Message asking for users input
+    Console.WriteLine("Enter the city:");
+    // Reads user input as a string
+    string city = Console.ReadLine();
+
+    // Message asking for users input
+    Console.WriteLine("Enter the ZIP code:");
+    int zip;
+    // Once again taking users input coverting to a integer and checking that its greater than 10000 and under 99999
+    // This keeps them in the 5 number format 
+    while (!int.TryParse(Console.ReadLine(), out zip) || zip < 10000 || zip > 99999)
+    {
+        // if false it throws this message prompting user to try again 
+        Console.WriteLine("Please enter a valid 5-digit ZIP code:");
+    }
+
+    // This is a new plant object that is created from users information they input
+    // Sold is set to false as the default 
+    Plant newPlant = new Plant()
+    {
+        Species = species,
+        LightNeeds = lightNeeds,
+        AskingPrice = askingPrice,
+        City = city,
+        ZIP = zip,
+        Sold = false
+    };
+    // Adds plant to the plants list 
+    plants.Add(newPlant);
+    
+    // This gives message to user to let them know it worked. Nothing worse than not knowing
+    Console.WriteLine("Plant added successfully!");
+}
 Console.Read();
