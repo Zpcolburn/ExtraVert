@@ -51,9 +51,8 @@ List<Plant> plants = new List<Plant>()
     },
 
 };
-
+ 
 string greeting = @"Welcome to Extravert, the only plant adobtion store!";
-
 Console.WriteLine(greeting);
 
 string choice = null;
@@ -80,7 +79,7 @@ while (choice != "0")
     }
     else if (choice == "3")
     {
-        throw new NotImplementedException("AdoptPlant");
+        AdoptPlant();
     }
     else if (choice == "4")
     {
@@ -92,7 +91,7 @@ void DisplayPlants()
 {
     for (int i = 0; i < plants.Count; i++)
     {
-        var plant = plants[i];
+        string plant = plants[i];
         string status = plant.Sold ? "was sold" : "is available";
         Console.WriteLine($"{i + 1}. A {plant.Species} in {plant.City} {status} for {plant.AskingPrice} dollars");
     }
@@ -140,8 +139,6 @@ void PostPlantToBeAdopted()
         Console.WriteLine("Please enter a valid 5-digit ZIP code:");
     }
 
-    // This is a new plant object that is created from users information they input
-    // Sold is set to false as the default 
     Plant newPlant = new Plant()
     {
         Species = species,
@@ -151,10 +148,34 @@ void PostPlantToBeAdopted()
         ZIP = zip,
         Sold = false
     };
-    // Adds plant to the plants list 
+   
     plants.Add(newPlant);
     
-    // This gives message to user to let them know it worked. Nothing worse than not knowing
     Console.WriteLine("Plant added successfully!");
+}
+
+void AdoptPlant()
+{
+    Console.WriteLine("Plants available for adoption:");
+    List<Plant> availablePlants = plants.FindAll(plant => !plant.Sold);
+    for(int i = 0; i < availablePlants.Count; i++)
+    {
+        strign plant = availablePlants[i];
+        Console.WriteLine($"{i + 1}. A {plant.Species} in {plant.City} is available for {plant.AskingPrice} dollars");
+    }
+    if (availablePlants.Count == 0)
+    {
+        Console.WriteLine("There are no available plants to adopt");
+        return;
+    }
+    Console.WriteLine("Please enter the number of the plant you want to adopt:");
+    int choice;
+    while(!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > availablePlants.Count)
+    {
+        Console.WriteLine("Please enter corresponding number to the plant");
+    }
+
+    availablePlants[choice - 1].Sold = true;
+    Console.WriteLine("Thank you for adopting a plant");
 }
 Console.Read();
