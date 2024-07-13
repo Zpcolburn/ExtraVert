@@ -52,7 +52,7 @@ List<Plant> plants = new List<Plant>()
 
 };
  
-string greeting = @"Welcome to Extravert, the only plant adobtion store!";
+string greeting = @"Welcome to Extravert, the only plant adoption store!";
 Console.WriteLine(greeting);
 
 string choice = null;
@@ -83,7 +83,7 @@ while (choice != "0")
     }
     else if (choice == "4")
     {
-        throw new NotImplementedException("DelistPlant");
+        DelistAPlant();
     }
 };
 
@@ -91,9 +91,8 @@ void DisplayPlants()
 {
     for (int i = 0; i < plants.Count; i++)
     {
-        string plant = plants[i];
-        string status = plant.Sold ? "was sold" : "is available";
-        Console.WriteLine($"{i + 1}. A {plant.Species} in {plant.City} {status} for {plant.AskingPrice} dollars");
+        string status = plants[i].Sold ? "was sold" : "is available";
+        Console.WriteLine($"{i + 1}. A {plants[i].Species} in {plants[i].City} {status} for {plants[i].AskingPrice} dollars");
     }
 };
 
@@ -160,7 +159,7 @@ void AdoptPlant()
     List<Plant> availablePlants = plants.FindAll(plant => !plant.Sold);
     for(int i = 0; i < availablePlants.Count; i++)
     {
-        strign plant = availablePlants[i];
+        Plant plant = availablePlants[i];
         Console.WriteLine($"{i + 1}. A {plant.Species} in {plant.City} is available for {plant.AskingPrice} dollars");
     }
     if (availablePlants.Count == 0)
@@ -178,4 +177,26 @@ void AdoptPlant()
     availablePlants[choice - 1].Sold = true;
     Console.WriteLine("Thank you for adopting a plant");
 }
-Console.Read();
+
+void DelistAPlant()
+{
+    Console.WriteLine("All plants");
+    for (int i = 0; i < plants.Count; i++)
+    {
+        Plant plant = plants[i];
+        Console.WriteLine($"{i + 1}. A {plant.Species} in {plant.City} {(plant.Sold ? "was sold" : "is available")} for {plant.AskingPrice} dollars");
+    }
+    if (plants.Count == 0)
+    {
+        Console.WriteLine("No plants to delist.");
+        return;
+    }
+
+    Console.WriteLine("Please enter the number of the plant you want to delist:");
+    int choice;
+    while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > plants.Count)
+    {
+        Console.WriteLine("Please enter corresponding number to the plant:");
+    }
+}
+
