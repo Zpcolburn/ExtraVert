@@ -159,8 +159,7 @@ void AdoptPlant()
     List<Plant> availablePlants = plants.FindAll(plant => !plant.Sold);
     for(int i = 0; i < availablePlants.Count; i++)
     {
-        Plant plant = availablePlants[i];
-        Console.WriteLine($"{i + 1}. A {plant.Species} in {plant.City} is available for {plant.AskingPrice} dollars");
+        Console.WriteLine($"{i + 1}. A {plants[i].Species} in {plants[i].City} is available for {plants[i].AskingPrice} dollars");
     }
     if (availablePlants.Count == 0)
     {
@@ -182,9 +181,8 @@ void DelistAPlant()
 {
     Console.WriteLine("All plants");
     for (int i = 0; i < plants.Count; i++)
-    {
-        Plant plant = plants[i];
-        Console.WriteLine($"{i + 1}. A {plant.Species} in {plant.City} {(plant.Sold ? "was sold" : "is available")} for {plant.AskingPrice} dollars");
+    { 
+        Console.WriteLine($"{i + 1}. A {plants[i].Species} in {plants[i].City} {(plants[i].Sold ? "was sold" : "is available")} for {plants[i].AskingPrice} dollars");
     }
     if (plants.Count == 0)
     {
