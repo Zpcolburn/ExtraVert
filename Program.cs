@@ -7,7 +7,7 @@ List<Plant> plants = new List<Plant>()
     new Plant ()
     {
         Species = "Snake Plant",
-        LightNeeds = 2,
+        LightNeeds = 1,
         AskingPrice = 25,
         City = "Roseville",
         ZIP = 95661,
@@ -43,7 +43,7 @@ List<Plant> plants = new List<Plant>()
     new Plant ()
     {
         Species = "Aloe Vera",
-        LightNeeds = 4,
+        LightNeeds = 5,
         AskingPrice = 12,
         City = "Nolensville",
         ZIP = 37135,
@@ -66,7 +66,8 @@ while (choice != "0")
                         2. Post a plant to be adopted
                         3. Adopt a plant
                         4. Delist a plant
-                        5. Plant of the Day");
+                        5. Plant of the Day
+                        6. Search for Plants by Light Needs");
 
     choice = Console.ReadLine();
     if (choice == "0")
@@ -92,6 +93,10 @@ while (choice != "0")
     else if (choice == "5")
     {
         PlantOfTheDay();
+    }
+    else if (choice == "6")
+    {
+        SearchLightNeeds();
     }
 };
 
@@ -219,5 +224,37 @@ void PlantOfTheDay()
          
     }
     Console.WriteLine($"Plant of the day: {randomPlant.Species}, located in {randomPlant.City} Zip code is {randomPlant.ZIP}, require light level {randomPlant.LightNeeds}, priced at {randomPlant.AskingPrice} dollars");
+}
+
+void SearchLightNeeds()
+{
+    Console.WriteLine("Enter the maximum light needs (1-5):");
+    int maxLightNeeds;
+    while (!int.TryParse(Console.ReadLine(), out maxLightNeeds) || maxLightNeeds < 1 || maxLightNeeds > 5)
+    {
+        Console.WriteLine("Please enter a number between (1-5):");
+    }
+
+    List<Plant> matchingPlants = new List<Plant>();
+    foreach ( Plant plant in plants )
+    {
+        if (plant.LightNeeds <= maxLightNeeds)
+        {
+            matchingPlants.Add(plant);
+        }
+    }
+
+    if (matchingPlants.Count == 0)
+    {
+        Console.WriteLine("No plants in that light needs.");
+    }
+    else
+    {
+        Console.WriteLine("Plants matching those light needs:");
+        foreach ( Plant plant in matchingPlants )
+        {
+            Console.WriteLine($"{plant.Species}");
+        }
+    }
 }
 
