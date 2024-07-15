@@ -72,7 +72,8 @@ while (choice != "0")
                         3. Adopt a plant
                         4. Delist a plant
                         5. Plant of the Day
-                        6. Search for Plants by Light Needs");
+                        6. Search for Plants by Light Needs
+                        7. View plant statistics");
 
     choice = Console.ReadLine();
     if (choice == "0")
@@ -102,6 +103,10 @@ while (choice != "0")
     else if (choice == "6")
     {
         SearchLightNeeds();
+    }
+    else if (choice == "7")
+    {
+        ViewPlantStatistics();
     }
 };
 
@@ -283,5 +288,27 @@ void SearchLightNeeds()
             Console.WriteLine($"{plant.Species}");
         }
     }
+}
+
+void ViewPlantStatistics()
+{
+    if (plants.Count == 0)
+    {
+        Console.WriteLine("No plants available to display statistics.");
+        return;
+    }
+
+    var lowestPricePlant = plants.OrderBy(p => p.AskingPrice).FirstOrDefault();
+    var highestLightNeedsPlant = plants.OrderByDescending(p => p.LightNeeds).FirstOrDefault();
+    var numberOfPlantsAvailable = plants.Count(p => !p.Sold);
+    var averageLightNeeds = plants.Average(p => p.LightNeeds);
+    var percentageAdopted = ((double)plants.Count(p => p.Sold) / plants.Count) * 100;
+
+    Console.WriteLine($"Statistics:");
+    Console.WriteLine($"Lowest price plant: {lowestPricePlant?.Species} (${lowestPricePlant?.AskingPrice})");
+    Console.WriteLine($"Number of plants available: {numberOfPlantsAvailable}");
+    Console.WriteLine($"Plant with highest light needs: {highestLightNeedsPlant?.Species} ({highestLightNeedsPlant?.LightNeeds})");
+    Console.WriteLine($"Average light needs: {averageLightNeeds:F2}");
+    Console.WriteLine($"Percentage of plants adopted: {percentageAdopted:F2}%");
 }
 
