@@ -51,6 +51,8 @@ List<Plant> plants = new List<Plant>()
     },
 
 };
+
+Random random = new Random();
  
 string greeting = @"Welcome to Extravert, the only plant adoption store!";
 Console.WriteLine(greeting);
@@ -63,7 +65,9 @@ while (choice != "0")
                         1. Display all plants
                         2. Post a plant to be adopted
                         3. Adopt a plant
-                        4. Delist a plant");
+                        4. Delist a plant
+                        5. Plant of the Day");
+
     choice = Console.ReadLine();
     if (choice == "0")
     {
@@ -84,6 +88,10 @@ while (choice != "0")
     else if (choice == "4")
     {
         DelistAPlant();
+    }
+    else if (choice == "5")
+    {
+        PlantOfTheDay();
     }
 };
 
@@ -196,5 +204,20 @@ void DelistAPlant()
     {
         Console.WriteLine("Please enter corresponding number to the plant:");
     }
+}
+
+void PlantOfTheDay()
+{
+    Plant randomPlant = null;
+    while(randomPlant == null)
+    {
+        int randomIndex = random.Next(plants.Count);
+        if(!plants[randomIndex].Sold)
+        {
+            randomPlant = plants[randomIndex];
+        }
+         
+    }
+    Console.WriteLine($"Plant of the day: {randomPlant.Species}, located in {randomPlant.City} Zip code is {randomPlant.ZIP}, require light level {randomPlant.LightNeeds}, priced at {randomPlant.AskingPrice} dollars");
 }
 
